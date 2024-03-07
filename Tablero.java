@@ -3,13 +3,13 @@ public class Tablero {
     private EstadoCasilla[][] casilla;
 
     public Tablero() {
-        this.casilla = new EstadoCasilla[Dimension][Dimension];
+        this.casilla = new EstadoCasilla[3][3];
     }
 
     public void mostrar() {
         for (int i = 0; i < casilla.length; i++) {
             for (int j = 0; j < casilla[i].length; j++) {
-                System.out.print(casilla[i][j] + " ");
+                System.out.print(casilla[i][j] + "|");
             }
             System.out.println();
         }
@@ -17,7 +17,7 @@ public class Tablero {
 
     public boolean hayTresEnRaya() {
 
-        return hayTresEnRaya(EstadoCasilla.Ficha_0) || hayTresEnRaya(EstadoCasilla.FICHA_X);
+        return hayTresEnRaya(EstadoCasilla.Ficha_O) || hayTresEnRaya(EstadoCasilla.FICHA_X);
     }
 
     private boolean hayTresEnRaya(EstadoCasilla color) {
@@ -49,11 +49,12 @@ public class Tablero {
         }
         return false;
     }
-    public void ponerFicha(Coordenada coordenada, EstadoCasilla color){
+
+    public void ponerFicha(Coordenada coordenada, EstadoCasilla color) {
         int fila = coordenada.getFila();
         int columna = coordenada.getColumna();
-        if (fila>=0 && fila< casilla.length &&columna>=0 && columna< casilla[0].length){
-            casilla[fila][columna] =color;
+        if (fila >= 0 && fila < casilla.length && columna >= 0 && columna < casilla[0].length) {
+            casilla[fila][columna] = color;
         }
     }
 
@@ -65,4 +66,15 @@ public class Tablero {
         }
     }
 
+    public boolean estaLleno() {
+        for (int f = 0; f < casilla.length; f++) {
+            for (int c = 0; c < casilla[f].length; c++) {
+                if (casilla[f][c].equals(EstadoCasilla.VACIO)) {
+                    System.out.println("Aun hay casillas a rellenar");
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

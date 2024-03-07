@@ -1,7 +1,7 @@
 public enum EstadoCasilla {
-    Ficha_0 {
+    Ficha_O {
         public String toString() {
-            return "0";
+            return "O";
         }
     },
     FICHA_X {
