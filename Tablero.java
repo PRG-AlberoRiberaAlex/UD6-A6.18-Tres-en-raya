@@ -1,15 +1,15 @@
 import java.util.Arrays;
 
 public class Tablero {
-    private final int Dimension =3;
+    private static final int Dimension = 5;
     private EstadoCasilla[][] casilla;
 
-    public Tablero(){
+    public Tablero() {
         this.casilla = new EstadoCasilla[Dimension + 1][Dimension + 1];
         vaciar();
     }
 
-    public int getDimension() {
+    public static int getDimension() {
         return Dimension;
     }
 
@@ -30,29 +30,76 @@ public class Tablero {
     }
 
 
-
     public boolean hayTresEnRaya() {
 
         return hayTresEnRaya(EstadoCasilla.Ficha_O) || hayTresEnRaya(EstadoCasilla.FICHA_X);
     }
 
     private boolean hayTresEnRaya(EstadoCasilla color) {
-        for (int f = 1; f < casilla.length; f++) {
-            if (casilla[f][0] == color && casilla[f][1] == color && casilla[f][2] == color)
-                return true;
+        // Verificar filas
+        for (int f = 0; f < casilla.length; f++) {
+            int count = 0;
+            for (int c = 0; c < casilla[f].length; c++) {
+                if (casilla[f][c] == color) {
+                    count++;
+                    if (count == Dimension) {
+                        return true; // Hay una línea de tamaño Dimension
+                    }
+                } else {
+                    count = 0;
+                }
+            }
         }
-        for (int c = 1; c < casilla[0].length; c++) {
-            if (casilla[0][c] == color && casilla[1][c] == color && casilla[2][c] == color)
-                return true;
+        // Verificar columnas
+        for (int c = 0; c < casilla[0].length; c++) {
+            int count = 0;
+            for (int f = 0; f < casilla.length; f++) {
+                if (casilla[f][c] == color) {
+                    count++;
+                    if (count == Dimension) {
+                        return true;
+                    }
+                } else {
+                    count = 0;
+                }
+            }
         }
-        if (casilla[1][1] == color && casilla[2][2] == color && casilla[3][3] == color) {
-            return true;
+
+        // Verificar diagonal de izquierda a derecha
+        for (int i = 0; i <= casilla.length - Dimension; i++) {
+            for (int j = 0; j <= casilla[0].length - Dimension; j++) {
+                int count = 0;
+                for (int k = 0; k < Dimension; k++) {
+                    if (casilla[i + k][j + k] == color) {
+                        count++;
+                        if (count == Dimension) {
+                            return true;
+                        }
+                    } else {
+                        count = 0;
+                    }
+                }
+            }
         }
-        if (casilla[1][3] == color && casilla[2][2] == color && casilla[3][1] == color) {
-            return true;
+        for (int i = 0; i <= casilla.length - Dimension; i++) {
+            for (int j = Dimension - 1; j < casilla[0].length; j++) {
+                int count = 0;
+                for (int k = 0; k < Dimension; k++) {
+                    if (casilla[i + k][j - k] == color) {
+                        count++;
+                        if (count == Dimension) {
+                            return true;
+                        }
+                    } else {
+                        count = 0;
+                    }
+                }
+            }
         }
+
         return false;
     }
+
 
     public boolean isOcupada(Coordenada coordenada) {
         int fila = coordenada.getFila();

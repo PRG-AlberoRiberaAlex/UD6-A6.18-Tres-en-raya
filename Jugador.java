@@ -31,21 +31,21 @@ public class Jugador {
         int fila, columna;
 
         do {
-            System.out.print("Introduce fila[1-3]: ");
+            System.out.print("Introduce fila[1-" + Tablero.getDimension() + "]: ");
             while (!TresEnRaya.teclat.hasNextInt()) {
-                System.out.print("Introduce fila[1-3]: ");
+                System.out.print("Introduce fila[1-" + Tablero.getDimension() + "]: ");
                 TresEnRaya.teclat.next();
             }
             fila = TresEnRaya.teclat.nextInt();
 
-            System.out.print("Introduce columna[1-3]: ");
+            System.out.print("Introduce columna[1-" + Tablero.getDimension() + "]: ");
             while (!TresEnRaya.teclat.hasNextInt()) {
-                System.out.print("Introduce columna[1-3]: ");
+                System.out.print("Introduce columna[1-" + Tablero.getDimension() + "]: ");
                 TresEnRaya.teclat.next();
             }
             columna = TresEnRaya.teclat.nextInt();
 
-        } while (fila < 1 || fila > 3 || columna < 1 || columna > 3);
+        } while (fila < 1 || fila > Tablero.getDimension() || columna < 1 || columna > Tablero.getDimension());
 
         return new Coordenada(fila, columna);
     }

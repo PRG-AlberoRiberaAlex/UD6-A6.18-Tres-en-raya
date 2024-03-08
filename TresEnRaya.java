@@ -4,6 +4,12 @@ public class TresEnRaya {
     public static Scanner teclat = new Scanner(System.in);
 
     public static void main(String[] args) {
+        TresEnRaya tresEnRaya = new TresEnRaya();
+        tresEnRaya.jugar();
+    }
+
+
+    public void jugar(){
         Tablero tablero = new Tablero();
         Jugador jugador1 = new Jugador(EstadoCasilla.FICHA_X);
         Jugador jugador2 = new Jugador(EstadoCasilla.Ficha_O);
@@ -37,5 +43,6 @@ public class TresEnRaya {
                 return;
             }
         }
+
     }
 }
