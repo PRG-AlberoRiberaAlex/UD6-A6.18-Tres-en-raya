@@ -1,19 +1,35 @@
+import java.util.Arrays;
+
 public class Tablero {
-    private int Dimension;
+    private final int Dimension =3;
     private EstadoCasilla[][] casilla;
 
-    public Tablero() {
-        this.casilla = new EstadoCasilla[3][3];
+    public Tablero(){
+        this.casilla = new EstadoCasilla[Dimension + 1][Dimension + 1];
+        vaciar();
+    }
+
+    public int getDimension() {
+        return Dimension;
     }
 
     public void mostrar() {
-        for (int i = 0; i < casilla.length; i++) {
-            for (int j = 0; j < casilla[i].length; j++) {
-                System.out.print(casilla[i][j] + "|");
+        System.out.print("  ");
+        for (int j = 1; j < casilla[0].length; j++) {
+            System.out.print(j + " ");
+        }
+        System.out.println();
+
+        for (int f = 1; f < casilla.length; f++) {
+            System.out.print(f + "|"); // Número de fila
+            for (int c = 1; c < casilla[f].length; c++) {
+                System.out.print(casilla[f][c] + "|");
             }
             System.out.println();
         }
     }
+
+
 
     public boolean hayTresEnRaya() {
 
@@ -21,42 +37,45 @@ public class Tablero {
     }
 
     private boolean hayTresEnRaya(EstadoCasilla color) {
-        for (int f = 0; f < casilla.length; f++) {
+        for (int f = 1; f < casilla.length; f++) {
             if (casilla[f][0] == color && casilla[f][1] == color && casilla[f][2] == color)
                 return true;
         }
-        for (int c = 0; c < casilla[0].length; c++) {
+        for (int c = 1; c < casilla[0].length; c++) {
             if (casilla[0][c] == color && casilla[1][c] == color && casilla[2][c] == color)
                 return true;
         }
-        if (casilla[0][0] == color && casilla[1][1] == color && casilla[2][2] == color) {
+        if (casilla[1][1] == color && casilla[2][2] == color && casilla[3][3] == color) {
             return true;
         }
-        if (casilla[0][2] == color && casilla[1][1] == color && casilla[2][0] == color) {
+        if (casilla[1][3] == color && casilla[2][2] == color && casilla[3][1] == color) {
             return true;
         }
         return false;
     }
 
     public boolean isOcupada(Coordenada coordenada) {
-        for (int f = 0; f < casilla.length; f++) {
-            for (int c = 0; c < casilla[f].length; c++) {
-                if (casilla[f][c].equals(coordenada)) {
-                    System.out.println("La coordenada " + coordenada + " esta ocupada");
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public void ponerFicha(Coordenada coordenada, EstadoCasilla color) {
         int fila = coordenada.getFila();
         int columna = coordenada.getColumna();
-        if (fila >= 0 && fila < casilla.length && columna >= 0 && columna < casilla[0].length) {
-            casilla[fila][columna] = color;
+
+        return casilla[fila][columna] != EstadoCasilla.VACIO;
+    }
+
+    public boolean ponerFicha(Coordenada coordenada, EstadoCasilla color) {
+        int fila = coordenada.getFila();
+        int columna = coordenada.getColumna();
+        if (fila >= 1 && fila <= Dimension && columna >= 1 && columna <= Dimension) {
+            if (casilla[fila][columna] == EstadoCasilla.VACIO) {
+                casilla[fila][columna] = color;
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
     }
+
 
     public void vaciar() {
         for (int i = 0; i < casilla.length; i++) {
@@ -67,14 +86,15 @@ public class Tablero {
     }
 
     public boolean estaLleno() {
-        for (int f = 0; f < casilla.length; f++) {
-            for (int c = 0; c < casilla[f].length; c++) {
-                if (casilla[f][c].equals(EstadoCasilla.VACIO)) {
-                    System.out.println("Aun hay casillas a rellenar");
+        for (int f = 1; f < casilla.length; f++) {
+            for (int c = 1; c < casilla[f].length; c++) {
+                if (casilla[f][c] == EstadoCasilla.VACIO) {
                     return false;
                 }
             }
         }
         return true;
     }
+
+
 }

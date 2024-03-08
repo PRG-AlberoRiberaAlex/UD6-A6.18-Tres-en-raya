@@ -6,16 +6,55 @@ public class Jugador {
         this.color = color;
     }
 
-    public void ponerFicha(Tablero tablero) {
-        int num;
+    public boolean ponerFicha(Tablero tablero) {
+        Coordenada coordenada;
+        boolean fichaColocada = false;
+
+        while (!fichaColocada) {
+            coordenada = recogeCoordenada();
+            if (coordenada.isValida(tablero.getDimension())) {
+                if (!tablero.isOcupada(coordenada)) {
+                    tablero.ponerFicha(coordenada, color);
+                    fichaColocada = true;
+                    return true; // Ficha colocada con éxito
+                } else {
+                    System.out.println("La posición está ocupada. Inténtalo de nuevo.");
+                }
+            } else {
+                System.out.println("Coordenada inválida. Inténtalo de nuevo.");
+            }
+        }
+        return false; // Ficha no colocada
+    }
+
+    private Coordenada recogeCoordenada() {
+        int fila, columna;
+
         do {
             System.out.print("Introduce fila[1-3]: ");
             while (!TresEnRaya.teclat.hasNextInt()) {
                 System.out.print("Introduce fila[1-3]: ");
                 TresEnRaya.teclat.next();
             }
-            num = TresEnRaya.teclat.nextInt();
-        } while (num <= 0);
+            fila = TresEnRaya.teclat.nextInt();
+
+            System.out.print("Introduce columna[1-3]: ");
+            while (!TresEnRaya.teclat.hasNextInt()) {
+                System.out.print("Introduce columna[1-3]: ");
+                TresEnRaya.teclat.next();
+            }
+            columna = TresEnRaya.teclat.nextInt();
+
+        } while (fila < 1 || fila > 3 || columna < 1 || columna > 3);
+
+        return new Coordenada(fila, columna);
+    }
+
+    public void cantarVictoria() {
+        System.out.println("El jugador " + getColor() + " es el ganador");
+    }
+
+    public EstadoCasilla getColor() {
+        return color;
     }
 }
-
