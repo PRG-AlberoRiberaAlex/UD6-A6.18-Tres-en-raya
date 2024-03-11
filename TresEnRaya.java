@@ -11,11 +11,15 @@ public class TresEnRaya {
     public void jugar() {
         do {
             Tablero tablero = new Tablero();
-            Jugador jugador1 = new Jugador(EstadoCasilla.FICHA_X);
-            Jugador jugador2 = new Jugador(EstadoCasilla.Ficha_O);
+            Simbolos simbolos = new Simbolos();
+            tablero.inicializarSimbolos(simbolos);
+            simbolos.seleccionar();
+            Jugador jugador1 = new Jugador(EstadoCasilla.FICHA_X, simbolos);
+            Jugador jugador2 = new Jugador(EstadoCasilla.Ficha_O, simbolos);
 
             while (true) {
-                System.out.println("Turno del Jugador 1 (X):");
+                tablero.mostrar();
+                System.out.println("Turno del Jugador " + simbolos.obtenerSimbolo(EstadoCasilla.FICHA_X));
                 jugador1.ponerFicha(tablero);
                 tablero.mostrar();
 
@@ -29,7 +33,7 @@ public class TresEnRaya {
                     break;
                 }
 
-                System.out.println("Turno del Jugador 2 (O):");
+                System.out.println("Turno del Jugador " + simbolos.obtenerSimbolo(EstadoCasilla.Ficha_O));
                 jugador2.ponerFicha(tablero);
                 tablero.mostrar();
 
@@ -47,7 +51,6 @@ public class TresEnRaya {
             String respuesta;
             do {
                 System.out.println("¿Quieres volver a jugar? [S/N]: ");
-                teclat.nextLine();
                 respuesta = teclat.nextLine().toUpperCase();
 
                 if (respuesta.equals("S")) {

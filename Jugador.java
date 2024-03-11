@@ -1,9 +1,11 @@
 public class Jugador {
 
     private EstadoCasilla color;
+    private Simbolos simbolos;
 
-    public Jugador(EstadoCasilla color) {
+    public Jugador(EstadoCasilla color, Simbolos simbolos) {
         this.color = color;
+        this.simbolos=simbolos;
     }
 
     public boolean ponerFicha(Tablero tablero) {
@@ -56,5 +58,9 @@ public class Jugador {
 
     public EstadoCasilla getColor() {
         return color;
+    }
+
+    public Simbolos getSimbolos() {
+        return simbolos;
     }
 }

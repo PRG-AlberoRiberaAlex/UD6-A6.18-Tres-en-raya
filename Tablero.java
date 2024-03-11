@@ -3,10 +3,17 @@ import java.util.Arrays;
 public class Tablero {
     private static final int Dimension = 3;
     private EstadoCasilla[][] casilla;
+    private  Simbolos simbolos;
 
     public Tablero() {
         this.casilla = new EstadoCasilla[Dimension + 1][Dimension + 1];
         vaciar();
+
+    }
+
+
+    public void inicializarSimbolos(Simbolos simbolos) {
+        this.simbolos = simbolos;
     }
 
     public static int getDimension() {
@@ -20,14 +27,15 @@ public class Tablero {
         }
         System.out.println();
 
-        for (int f = 1; f < casilla.length; f++) {
-            System.out.print(f + "|"); // Número de fila
-            for (int c = 1; c < casilla[f].length; c++) {
-                System.out.print(casilla[f][c] + "|");
+        for (int f = 0; f < casilla.length; f++) {
+            System.out.print((f + 1) + "|"); // Número de fila
+            for (int c = 0; c < casilla[f].length; c++) {
+                System.out.print(simbolos.obtenerSimbolo(casilla[f][c]) + "|");
             }
             System.out.println();
         }
     }
+
 
 
     public boolean hayTresEnRaya() {
