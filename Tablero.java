@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class Tablero {
-    private static final int Dimension = 5;
+    private static final int Dimension = 3;
     private EstadoCasilla[][] casilla;
 
     public Tablero() {

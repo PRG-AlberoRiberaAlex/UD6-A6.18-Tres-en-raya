@@ -16,7 +16,7 @@ public class Jugador {
                 if (!tablero.isOcupada(coordenada)) {
                     tablero.ponerFicha(coordenada, color);
                     fichaColocada = true;
-                    return true; // Ficha colocada con éxito
+                    return true;
                 } else {
                     System.out.println("La posición está ocupada. Inténtalo de nuevo.");
                 }
@@ -24,7 +24,7 @@ public class Jugador {
                 System.out.println("Coordenada inválida. Inténtalo de nuevo.");
             }
         }
-        return false; // Ficha no colocada
+        return false;
     }
 
     private Coordenada recogeCoordenada() {
